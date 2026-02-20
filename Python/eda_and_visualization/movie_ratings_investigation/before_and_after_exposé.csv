@@ -1,0 +1,361 @@
+movie,year,fandango_stars,fandango_rating,fandango_votes,fandango_diff,after_exposé
+Avengers: Age of Ultron,2015,5.0,4.5,14846.0,0.5,False
+Cinderella,2015,5.0,4.5,12640.0,0.5,False
+Ant-Man,2015,5.0,4.5,12055.0,0.5,False
+Do You Believe?,2015,5.0,4.5,1793.0,0.5,False
+Hot Tub Time Machine 2,2015,3.5,3.0,1021.0,0.5,False
+The Water Diviner,2015,4.5,4.0,397.0,0.5,False
+Irrational Man,2015,4.0,3.5,252.0,0.5,False
+Top Five,2014,4.0,3.5,3223.0,0.5,False
+Shaun the Sheep Movie,2015,4.5,4.0,896.0,0.5,False
+Love & Mercy,2015,4.5,4.0,864.0,0.5,False
+Far From The Madding Crowd,2015,4.5,4.0,804.0,0.5,False
+Black Sea,2015,4.0,3.5,218.0,0.5,False
+Leviathan,2014,4.0,3.5,64.0,0.5,False
+Unbroken,2014,4.5,4.1,9443.0,0.4,False
+The Imitation Game,2014,5.0,4.6,8055.0,0.4,False
+Taken 3,2015,4.5,4.1,6757.0,0.4,False
+Ted 2,2015,4.5,4.1,6437.0,0.4,False
+Southpaw,2015,5.0,4.6,5597.0,0.4,False
+Night at the Museum: Secret of the Tomb,2014,4.5,4.1,5445.0,0.4,False
+Pixels,2015,4.5,4.1,3886.0,0.4,False
+"McFarland, USA",2015,5.0,4.6,3364.0,0.4,False
+Insidious: Chapter 3,2015,4.5,4.1,3276.0,0.4,False
+The Man From U.N.C.L.E.,2015,4.5,4.1,2686.0,0.4,False
+Run All Night,2015,4.5,4.1,2066.0,0.4,False
+Trainwreck,2015,4.5,4.1,8381.0,0.4,False
+Selma,2014,5.0,4.6,7025.0,0.4,False
+Ex Machina,2015,4.5,4.1,3458.0,0.4,False
+Still Alice,2015,4.5,4.1,1258.0,0.4,False
+Wild Tales,2014,4.5,4.1,235.0,0.4,False
+The End of the Tour,2015,4.5,4.1,121.0,0.4,False
+Red Army,2015,4.5,4.1,54.0,0.4,False
+When Marnie Was There,2015,4.5,4.1,46.0,0.4,False
+The Hunting Ground,2015,4.5,4.1,42.0,0.4,False
+The Boy Next Door,2015,4.0,3.6,2800.0,0.4,False
+Aloha,2015,3.5,3.1,2284.0,0.4,False
+The Loft,2015,4.0,3.6,811.0,0.4,False
+5 Flights Up,2015,4.0,3.6,79.0,0.4,False
+Welcome to Me,2015,4.0,3.6,56.0,0.4,False
+Saint Laurent,2015,3.5,3.1,43.0,0.4,False
+Maps to the Stars,2015,3.5,3.1,35.0,0.4,False
+I'll See You In My Dreams,2015,4.0,3.6,281.0,0.4,False
+Timbuktu,2015,4.0,3.6,74.0,0.4,False
+About Elly,2015,4.0,3.6,43.0,0.4,False
+The Diary of a Teenage Girl,2015,4.0,3.6,38.0,0.4,False
+Kingsman: The Secret Service,2015,4.5,4.2,15205.0,0.3,False
+Tomorrowland,2015,4.0,3.7,8077.0,0.3,False
+The Divergent Series: Insurgent,2015,4.5,4.2,7123.0,0.3,False
+Annie,2014,4.5,4.2,6835.0,0.3,False
+Fantastic Four,2015,3.0,2.7,6288.0,0.3,False
+Terminator Genisys,2015,4.5,4.2,6272.0,0.3,False
+Pitch Perfect 2,2015,4.5,4.2,4577.0,0.3,False
+Entourage,2015,4.5,4.2,4279.0,0.3,False
+The Age of Adaline,2015,4.5,4.2,3325.0,0.3,False
+Hot Pursuit,2015,4.0,3.7,2618.0,0.3,False
+The DUFF,2015,4.5,4.2,2273.0,0.3,False
+Black or White,2015,4.5,4.2,1862.0,0.3,False
+Project Almanac,2015,4.0,3.7,1834.0,0.3,False
+Ricki and the Flash,2015,4.0,3.7,1462.0,0.3,False
+Seventh Son,2015,3.5,3.2,1213.0,0.3,False
+Mortdecai,2015,3.5,3.2,1196.0,0.3,False
+Unfinished Business,2015,3.5,3.2,821.0,0.3,False
+American Ultra,2015,4.0,3.7,638.0,0.3,False
+True Story,2015,3.5,3.2,540.0,0.3,False
+Child 44,2015,4.0,3.7,308.0,0.3,False
+Dark Places,2015,4.0,3.7,55.0,0.3,False
+Birdman,2014,4.0,3.7,4194.0,0.3,False
+The Gift,2015,4.0,3.7,2680.0,0.3,False
+Unfriended,2015,3.0,2.7,2507.0,0.3,False
+Monkey Kingdom,2015,4.5,4.2,701.0,0.3,False
+Mr. Turner,2014,3.5,3.2,290.0,0.3,False
+Seymour: An Introduction,2015,4.5,4.2,41.0,0.3,False
+The Wrecking Crew,2015,4.5,4.2,38.0,0.3,False
+American Sniper,2015,5.0,4.8,34085.0,0.2,False
+Furious 7,2015,5.0,4.8,33538.0,0.2,False
+The Hobbit: The Battle of the Five Armies,2014,4.5,4.3,15337.0,0.2,False
+San Andreas,2015,4.5,4.3,9749.0,0.2,False
+Straight Outta Compton,2015,5.0,4.8,8096.0,0.2,False
+Vacation,2015,4.0,3.8,3815.0,0.2,False
+Chappie,2015,4.0,3.8,3642.0,0.2,False
+Poltergeist,2015,3.0,2.8,2704.0,0.2,False
+Paper Towns,2015,4.0,3.8,1750.0,0.2,False
+Big Eyes,2014,4.0,3.8,1501.0,0.2,False
+Blackhat,2015,3.0,2.8,1430.0,0.2,False
+Self/less,2015,4.0,3.8,1415.0,0.2,False
+Sinister 2,2015,3.5,3.3,973.0,0.2,False
+Little Boy,2015,4.5,4.3,811.0,0.2,False
+Me and Earl and The Dying Girl,2015,4.5,4.3,624.0,0.2,False
+Maggie,2015,3.5,3.3,95.0,0.2,False
+Mad Max: Fury Road,2015,4.5,4.3,10509.0,0.2,False
+Spy,2015,4.5,4.3,9418.0,0.2,False
+The SpongeBob Movie: Sponge Out of Water,2015,3.5,3.3,4493.0,0.2,False
+Paddington,2015,4.5,4.3,4045.0,0.2,False
+Dope,2015,4.5,4.3,2195.0,0.2,False
+What We Do in the Shadows,2015,4.5,4.3,259.0,0.2,False
+The Overnight,2015,3.5,3.3,110.0,0.2,False
+The Salt of the Earth,2015,4.5,4.3,83.0,0.2,False
+Song of the Sea,2014,4.5,4.3,66.0,0.2,False
+Fifty Shades of Grey,2015,4.0,3.9,34846.0,0.1,False
+Get Hard,2015,4.0,3.9,5933.0,0.1,False
+Focus,2015,4.0,3.9,4933.0,0.1,False
+Jupiter Ascending,2015,3.5,3.4,4122.0,0.1,False
+The Gallows,2015,3.0,2.9,1896.0,0.1,False
+The Second Best Exotic Marigold Hotel,2015,4.0,3.9,1870.0,0.1,False
+Strange Magic,2015,3.5,3.4,1117.0,0.1,False
+The Gunman,2015,3.5,3.4,996.0,0.1,False
+Hitman: Agent 47,2015,4.0,3.9,917.0,0.1,False
+Cake,2015,3.5,3.4,482.0,0.1,False
+The Vatican Tapes,2015,3.0,2.9,210.0,0.1,False
+A Little Chaos,2015,4.0,3.9,83.0,0.1,False
+The 100-Year-Old Man Who Climbed Out the Window and Disappeared,2015,4.0,3.9,63.0,0.1,False
+Escobar: Paradise Lost,2015,4.0,3.9,48.0,0.1,False
+Into the Woods,2014,3.5,3.4,13055.0,0.1,False
+It Follows,2015,3.0,2.9,2097.0,0.1,False
+Inherent Vice,2014,3.0,2.9,1078.0,0.1,False
+A Most Violent Year,2014,3.5,3.4,675.0,0.1,False
+While We're Young,2015,3.0,2.9,449.0,0.1,False
+Clouds of Sils Maria,2015,3.5,3.4,162.0,0.1,False
+Testament of Youth,2015,4.0,3.9,127.0,0.1,False
+Infinitely Polar Bear,2015,4.0,3.9,124.0,0.1,False
+Phoenix,2015,3.5,3.4,70.0,0.1,False
+The Wolfpack,2015,3.5,3.4,66.0,0.1,False
+The Stanford Prison Experiment,2015,4.0,3.9,51.0,0.1,False
+Tangerine,2015,4.0,3.9,36.0,0.1,False
+Magic Mike XXL,2015,4.5,4.4,9363.0,0.1,False
+Home,2015,4.5,4.4,7705.0,0.1,False
+The Wedding Ringer,2015,4.5,4.4,6506.0,0.1,False
+Woman in Gold,2015,4.5,4.4,2435.0,0.1,False
+The Last Five Years,2015,4.5,4.4,99.0,0.1,False
+Mission: Impossible â€“ Rogue Nation,2015,4.5,4.4,8357.0,0.1,False
+Amy,2015,4.5,4.4,729.0,0.1,False
+Jurassic World,2015,4.5,4.5,34390.0,0.0,False
+Minions,2015,4.0,4.0,14998.0,0.0,False
+Max,2015,4.5,4.5,3412.0,0.0,False
+Paul Blart: Mall Cop 2,2015,3.5,3.5,3054.0,0.0,False
+The Longest Ride,2015,4.5,4.5,2603.0,0.0,False
+The Lazarus Effect,2015,3.0,3.0,1651.0,0.0,False
+The Woman In Black 2 Angel of Death,2015,3.0,3.0,1333.0,0.0,False
+Danny Collins,2015,4.0,4.0,531.0,0.0,False
+Spare Parts,2015,4.5,4.5,450.0,0.0,False
+Serena,2015,3.0,3.0,50.0,0.0,False
+Inside Out,2015,4.5,4.5,15749.0,0.0,False
+Mr. Holmes,2015,4.0,4.0,1348.0,0.0,False
+'71,2015,3.5,3.5,192.0,0.0,False
+"Two Days, One Night",2014,3.5,3.5,118.0,0.0,False
+Gett: The Trial of Viviane Amsalem,2015,3.5,3.5,59.0,0.0,False
+"Kumiko, The Treasure Hunter",2015,3.5,3.5,41.0,0.0,False
+10 Cloverfield Lane,2016,3.5,,,,True
+13 Hours,2016,4.5,,,,True
+A Cure for Wellness,2016,3.0,,,,True
+A Dog's Purpose,2017,4.5,,,,True
+A Hologram for the King,2016,3.0,,,,True
+A Monster Calls,2016,4.0,,,,True
+A Street Cat Named Bob,2016,4.5,,,,True
+Alice Through the Looking Glass,2016,4.0,,,,True
+Allied,2016,4.0,,,,True
+Amateur Night,2016,3.5,,,,True
+Anthropoid,2016,4.0,,,,True
+Approaching the Unknown,2016,3.5,,,,True
+Arrival,2016,4.0,,,,True
+Arsenal,2017,3.5,,,,True
+Assassin's Creed,2016,4.0,,,,True
+Bad Moms,2016,4.5,,,,True
+Bad Santa 2,2016,3.5,,,,True
+Barbershop: The Next Cut,2016,4.5,,,,True
+Batman V Superman: Dawn of Justice,2016,4.0,,,,True
+Beauty and the Beast,2017,4.5,,,,True
+Before I Fall,2017,3.5,,,,True
+Before the Flood,2016,3.5,,,,True
+Ben-Hur,2016,4.0,,,,True
+Bitter Harvest,2017,4.5,,,,True
+Blair Witch,2016,3.0,,,,True
+Bleed for This,2016,4.0,,,,True
+Blood Father,2016,4.0,,,,True
+Bridget Jones's Baby,2016,4.0,,,,True
+Busanhaeng,2016,4.5,,,,True
+Cabin Fever,2016,4.0,,,,True
+Cafe Society,2016,3.5,,,,True
+Captain America: Civil War,2016,4.5,,,,True
+Captain Fantastic,2016,4.0,,,,True
+Cell,2016,3.0,,,,True
+Central Intelligence,2016,4.5,,,,True
+Collateral Beauty,2016,4.0,,,,True
+Collide,2016,3.5,,,,True
+Come and Find Me,2016,4.0,,,,True
+Criminal,2016,4.0,,,,True
+"Crouching Tiger, Hidden Dragon: Sword of Destiny",2016,4.0,,,,True
+Deadpool,2016,4.5,,,,True
+Deepwater Horizon,2016,4.5,,,,True
+Dirty Grandpa,2016,3.5,,,,True
+Doctor Strange,2016,4.5,,,,True
+Don't Breathe,2016,4.0,,,,True
+Eddie the Eagle,2016,4.5,,,,True
+Elle,2016,3.5,,,,True
+Elvis & Nixon,2016,3.5,,,,True
+Everybody Loves Somebody,2017,4.0,,,,True
+Everybody Wants Some!!,2016,3.5,,,,True
+Exposed,2016,2.5,,,,True
+Fantastic Beasts and Where to Find Them,2016,4.5,,,,True
+Fences,2016,4.0,,,,True
+Fifty Shades Darker,2017,4.5,,,,True
+Fifty Shades of Black,2016,2.5,,,,True
+Finding Dory,2016,4.5,,,,True
+Fist Fight,2017,3.5,,,,True
+Florence Foster Jenkins,2016,4.0,,,,True
+Free State of Jones,2016,4.0,,,,True
+Genius,2016,3.5,,,,True
+Get a Job,2016,3.0,,,,True
+Get Out,2017,4.5,,,,True
+Ghostbusters,2016,4.0,,,,True
+Gods of Egypt,2016,3.5,,,,True
+Gold,2016,3.5,,,,True
+Hacksaw Ridge,2016,4.5,,,,True
+"Hail, Caesar!",2016,2.5,,,,True
+Hands of Stone,2016,4.0,,,,True
+Hell or High Water,2016,4.5,,,,True
+Hidden Figures,2016,5.0,,,,True
+How to Be Single,2016,4.0,,,,True
+Hunt for the Wilderpeople,2016,4.5,,,,True
+Hush,2016,4.0,,,,True
+"I, Daniel Blake",2016,4.5,,,,True
+I.T.,2016,3.5,,,,True
+Ice Age: Collision Course,2016,4.0,,,,True
+Imperium,2016,4.5,,,,True
+In a Valley of Violence,2016,4.0,,,,True
+Incarnate,2016,3.0,,,,True
+Independence Day: Resurgence,2016,3.0,,,,True
+Inferno,2016,3.5,,,,True
+Jack Reacher: Never Go Back,2016,4.0,,,,True
+Jackie,2016,3.5,,,,True
+Jane Got a Gun,2016,3.5,,,,True
+Jason Bourne,2016,4.0,,,,True
+John Wick: Chapter 2,2017,4.5,,,,True
+Julieta,2016,3.5,,,,True
+Keanu,2016,4.0,,,,True
+Keeping Up with the Joneses,2016,3.5,,,,True
+Kickboxer,2016,4.0,,,,True
+Kingsglaive: Final Fantasy XV,2016,4.5,,,,True
+Kong: Skull Island,2017,4.0,,,,True
+Kubo and the Two Strings,2016,4.5,,,,True
+Kung Fu Panda 3,2016,4.5,,,,True
+La La Land,2016,4.0,,,,True
+Lights Out,2016,4.0,,,,True
+Lion,2016,4.0,,,,True
+Live by Night,2016,3.5,,,,True
+Logan,2017,4.5,,,,True
+London Has Fallen,2016,4.5,,,,True
+Love & Friendship,2016,3.5,,,,True
+Loving,2016,4.0,,,,True
+Manchester by the Sea,2016,3.5,,,,True
+Manhattan Night,2016,3.5,,,,True
+Marauders,2016,4.5,,,,True
+Masterminds,2016,3.5,,,,True
+Max Steel,2016,3.5,,,,True
+Me Before You,2016,4.5,,,,True
+Mechanic: Resurrection,2016,4.0,,,,True
+Midnight Special,2016,3.5,,,,True
+Mike and Dave Need Wedding Dates,2016,4.0,,,,True
+Miracles from Heaven,2016,4.5,,,,True
+Misconduct,2016,3.0,,,,True
+Miss Peregrine's Home for Peculiar Children,2016,4.0,,,,True
+Moana,2016,4.5,,,,True
+Money Monster,2016,4.0,,,,True
+Moonlight,2016,4.0,,,,True
+Morgan,2016,3.5,,,,True
+Mr. Church,2016,4.5,,,,True
+My Big Fat Greek Wedding 2,2016,4.0,,,,True
+Neighbors 2: Sorority Rising,2016,3.5,,,,True
+Nerve,2016,4.0,,,,True
+Nine Lives,2016,4.0,,,,True
+Nocturnal Animals,2016,3.5,,,,True
+Norm of the North,2016,3.0,,,,True
+Now You See Me 2,2016,4.0,,,,True
+Office Christmas Party,2016,3.5,,,,True
+Ouija: Origin of Evil,2016,3.5,,,,True
+Our Kind of Traitor,2016,3.5,,,,True
+Passengers,2016,4.0,,,,True
+Patriots Day,2016,4.5,,,,True
+Pele: Birth of a Legened,2016,4.5,,,,True
+Pete's Dragon,2016,4.5,,,,True
+Precious Cargo,2016,3.0,,,,True
+Pride and Prejudice and Zombies,2016,4.0,,,,True
+Race,2016,4.5,,,,True
+Resident Evil: The Final Chapter,2016,4.0,,,,True
+Ride Along 2,2016,4.0,,,,True
+Rings,2017,3.0,,,,True
+Risen,2016,4.5,,,,True
+Rogue One: A Star Wars Story,2016,4.5,,,,True
+Sausage Party,2016,3.5,,,,True
+Shut In,2016,3.0,,,,True
+Sing,2016,4.5,,,,True
+Sing Street,2016,4.5,,,,True
+Skiptrace,2016,3.5,,,,True
+Sleepless,2017,4.0,,,,True
+Snowden,2016,4.0,,,,True
+Split,2016,4.0,,,,True
+Star Trek Beyond,2016,4.5,,,,True
+Storks,2016,4.5,,,,True
+Suicide Squad,2016,4.0,,,,True
+Sully,2016,4.5,,,,True
+Swiss Army Man,2016,4.0,,,,True
+T2 Trainspotting,2017,4.5,,,,True
+Table 19,2017,3.0,,,,True
+Teenage Mutant Ninja Turtles: Out of the Shadows,2016,4.0,,,,True
+The 5th Wave,2016,3.5,,,,True
+The 9th Life of Louis Drax,2016,3.5,,,,True
+The Accountant,2016,4.5,,,,True
+The Angry Birds Movie,2016,4.0,,,,True
+The Autopsy of Jane Doe,2016,4.5,,,,True
+The BFG,2016,4.0,,,,True
+The Boss,2016,3.5,,,,True
+The Boy,2016,3.5,,,,True
+The Brothers Grimsby,2016,3.5,,,,True
+The Bye Bye Man,2017,3.0,,,,True
+The Choice,2016,4.0,,,,True
+The Confirmation,2016,4.5,,,,True
+The Conjuring 2,2016,4.5,,,,True
+The Darkness,2016,2.5,,,,True
+The Disappointments Room,2016,2.5,,,,True
+The Duel,2016,3.5,,,,True
+The Edge of Seventeen,2016,4.0,,,,True
+The Finest Hours,2016,4.0,,,,True
+The Forest,2016,3.0,,,,True
+The Founder,2016,4.0,,,,True
+The Girl on the Train,2016,4.0,,,,True
+The Girl with All the Gifts,2016,4.0,,,,True
+The Great Wall,2016,4.0,,,,True
+The Huntsman: Winter's War,2016,4.0,,,,True
+The Infiltrator,2016,4.0,,,,True
+The Jungle Book,2016,4.5,,,,True
+The Last Word,2017,3.5,,,,True
+The Legend of Tarzan,2016,4.5,,,,True
+The LEGO Batman Movie,2017,4.5,,,,True
+The Light Between Oceans,2016,4.0,,,,True
+The Magnificent Seven,2016,4.5,,,,True
+The Neon Demon,2016,3.5,,,,True
+The Nice Guys,2016,3.5,,,,True
+The Other Side of the Door,2016,3.5,,,,True
+The Perfect Match,2016,4.0,,,,True
+The Purge: Election Year,2016,4.0,,,,True
+The Secret Life of Pets,2016,4.0,,,,True
+The Shack,2017,4.5,,,,True
+The Shallows,2016,4.0,,,,True
+The Space Between Us,2017,4.0,,,,True
+The Take (Bastille Day),2016,4.0,,,,True
+The Whole Truth,2016,3.0,,,,True
+The Wild Life,2016,3.0,,,,True
+Triple 9,2016,3.5,,,,True
+Trolls,2016,4.5,,,,True
+Under the Shadow,2016,4.0,,,,True
+Underworld: Blood Wars,2016,4.0,,,,True
+War Dogs,2016,4.0,,,,True
+War on Everyone,2016,4.0,,,,True
+Warcraft,2016,4.0,,,,True
+Whiskey Tango Foxtrot,2016,3.5,,,,True
+Why Him?,2016,4.0,,,,True
+X-Men: Apocalypse,2016,4.0,,,,True
+XX,2017,3.0,,,,True
+xXx: Return of Xander Cage,2017,4.0,,,,True
+Zoolander 2,2016,2.5,,,,True
+Zootopia,2016,4.5,,,,True

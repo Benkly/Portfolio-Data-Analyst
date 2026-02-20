@@ -1,0 +1,6 @@
+# DotEnv Configuration
+.env
+
+# VS Code
+.vscode/
+northwind.code-workspace
