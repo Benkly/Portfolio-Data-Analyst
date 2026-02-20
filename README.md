@@ -3,7 +3,7 @@
 This repo showcases projects relevant to data analyst roles.
 
 ## Excel Projects
-Focus on Exploratory and Explanatory Data Analysis Reports in Business Contexts
+Includes Exploratory and Explanatory Data Analysis Reports in Business Contexts.
 
 ## SQL Projects
 Exploratory and Explanatory Data Analysis Reports in Business Contexts. Focus on meeting deliverables.
