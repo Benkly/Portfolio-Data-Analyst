@@ -13,3 +13,6 @@ Exploratory and Explanatory Data Analysis Reports in Business Contexts. Focus on
 
 ## Python Projects
 Covers a range of different project types, including: machine-learning, exploratory/explanatory data analysis, probability-and-statistics, using-apis and end-to-end-projects.
+
+## R Projects
+Data Analysis Reports created using the R Statistical Programming Language in RStudio.
