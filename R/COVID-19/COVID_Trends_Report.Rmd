@@ -1,0 +1,228 @@
+---
+title: "COVID-19 Trends"
+author: "Benkly"
+date: "2026-02-26"
+output: 
+ html_document:
+   toc: true
+# output: pdf_document
+# output: ioslides_presentation
+# output: powerpoint_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+On 31^st^ December 2019, reports of a contagious respiratory illness of unknown cause surfaced in Wuhan, China. Roughly one month later, on 30^th^ January 2020, the World Health Organization (WHO) declared the outbreak as a public health emergency of international concern, scaling this assessment to pandemic status on 11^th^ March 2020.[^1^](https://www.nm.org/healthbeat/medical-advances/new-therapies-and-drug-trials/covid-19-pandemic-timeline) 
+
+The cause of this outbreak was discovered to be a coronavirus, specifically the SARS-CoV-2 virus, afflicting people with the disease COVID-19 (**CO**rona**VI**rus **D**isease). Transmission of the virus mainly occurs via airborne droplets containing viral particles, though any form of contact with viral particles can lead to infection.[^2^](https://www.nhs.uk/conditions/covid-19/how-to-avoid-catching-and-spreading-covid-19/) Symptoms of the disease range from asymptomatic to deadly, most commonly afflicting patients with: fever, sore throat, cough, fatigue, breathing difficulty, loss of smell and loss of taste.[^3^](https://www.nhs.uk/conditions/covid-19/covid-19-symptoms-and-what-to-do/)
+
+In order to better understand how the pandemic progressed, analysis of data obtained during the pandemic is key. 
+
+## Aims
+
+* To develop am understanding of the data analysis workflow using R.
+* Gain insights into the progression of the COVID-19 pandemic, particularly:
+   - Which countries have the greatest number of positive cases relative to the number of tests conducted in the early stages of the pandemic?
+   - How did the UK handle the initial months of the pandemic?
+
+## Dataset
+A publicly available dataset was sourced from [Kaggle](https://www.kaggle.com/datasets/lin0li/covid19testing).
+
+### Data Dictionary
+| Column                  | Description                                                                 |
+|-------------------------|-----------------------------------------------------------------------------|
+| Date                    | Date                                                                        |
+| Continent               | Name of continent (North America, Europe, ...)                              |
+| Country_Code            | Country code (UK, US, CA, ...)                                              |
+| Country                 | Country name                                                                |
+| Province_State          | State/Province names ("All States" where state/province data not available) |
+| positive                | Cumulative number of reported positive cases                                |
+| active                  | Number of active cases on that day                                          |
+| hospitalized            | Cumulative number of reported hospitalized cases                            |
+| hospitalizedCurr        | Number of active hospitalized cases that day                                |
+| recovered               | Cumulative number of recovered cases                                        |
+| death                   | Cumulative number of deaths                                                 |
+| total_tested            | Cumulative number of tests conducted                                        |
+| daily_tested            | Number of tests conducted on the day. If daily data unavailable, daily tested averaged across days in between |
+| daily_positive          | Number of positive cases reported on the day. If daily data unavailable, daily positive averaged across days in between |
+
+## Loading Libraries and the Dataset
+
+```{r loading libraries and dataset, warning=FALSE}
+# Loading libraries
+library(conflicted)
+library(tidyverse)
+# Resolve filter conflict
+conflicts_prefer(dplyr::filter)
+# Loading dataset
+covid_df <- read_csv("covid19.csv") 
+```
+
+```{r understanding the dataset}
+# Dimension of the dataframe
+dim(covid_df)
+
+# Column names
+vector_cols <- names(covid_df)
+vector_cols
+
+# First six observations
+knitr::kable(head(covid_df))
+
+# Global view of the dataset
+glimpse(covid_df)
+```
+
+The dataset `covid_df` contains `r nrow(covid_df)` rows and `r ncol(covid_df)` columns. All data types and column names are sensible.
+
+## Isolating Required Rows
+
+```{r isolating country level data}
+# isolating country level data
+covid_df_all_states <- covid_df %>% 
+                       filter(Province_State == "All States") %>%
+                       select(-Province_State)
+
+knitr::kable(head(covid_df_all_states))
+```
+
+- We can remove `Province_State` without losing information because after the filtering step this column only contains the value `"All States"`.
+
+## Isolating Required Columns
+
+The dataset contains a mixture of data collected on a daily basis and cumulative frequency counts. We must separate these such that we are not comparing daily data with cumulative data (this will lead to inaccurate conclusions otherwise).
+
+```{r separating daily data from cumulative data}
+# isolating daily data
+covid_df_all_states_daily <- covid_df_all_states %>%
+                             select(Date, Country, active, hospitalizedCurr, daily_tested, daily_positive)
+
+knitr::kable(head(covid_df_all_states_daily))
+
+covid_df_all_states_cumulative <- covid_df_all_states %>%
+                                  select(Date, Country, positive, hospitalized, recovered, death, total_tested)
+
+knitr::kable(head(covid_df_all_states_cumulative))
+```
+
+## Summarizing the Available Daily Data
+
+```{r summing daily data}
+covid_df_all_states_daily_sum <- covid_df_all_states_daily %>%
+                                 group_by(Country) %>%
+                                 summarize(
+                                   tested = sum(daily_tested),
+                                   positive = sum(daily_positive),
+                                   active = sum(active),
+                                   hospitalized = sum(hospitalizedCurr)) %>%
+                                 arrange(-tested)
+
+covid_top_10 <- head(covid_df_all_states_daily_sum, 10)
+knitr::kable(covid_top_10)
+```
+
+We can now begin to analyse the data to answer our initial question: **Which countries have the greatest number of positive cases relative to the number of tests conducted in the early stages of the pandemic?**. To do this, we can find the ratio of positive tests to total number of cases conducted for the countries with the greatest number of tests conducted.
+
+```{r calculating ratio of postive cases to total cases for the top 10 most tested countries}
+countries <- covid_top_10$Country
+tested_cases <- covid_top_10$tested
+positive_cases <- covid_top_10$positive
+active_cases <- covid_top_10$active
+hospitalized_cases <- covid_top_10$hospitalized
+
+names(tested_cases) <- countries
+names(positive_cases) <- countries
+names(active_cases) <- countries
+names(hospitalized_cases) <- countries
+
+positive_tested_ratios <- (positive_cases / tested_cases)
+
+covid_top_10 <- covid_top_10 %>%
+                mutate(
+                  positive_tested_ratio = positive / tested) %>%
+                arrange(-positive_tested_ratio)
+
+knitr::kable(covid_top_10)
+```
+
+We can see the UK, USA and Turkey seem to have the greatest ratios, perhaps indicating a significant rate of spread developing in these nations at the start of the pandemic.
+
+Relevant data from these countries are added to a matrix:
+
+```{r top three matrix}
+united_kingdom <- c(0.11, 1473672, 166909, 0, 0)
+united_states <- c(0.10, 17282363, 1877179, 0, 0)
+turkey <- c(0.08, 2031192, 163941, 2980960, 0) 
+
+covid_mat <- rbind(united_kingdom, united_states, turkey)
+colnames(covid_mat) <- c("Ratio", "tested", "positive", "active", "hospitalized")
+
+knitr::kable(covid_mat)
+```
+
+## Creating a Summary List
+
+To pack together everything into one place, a summary list is created which can be used to store the various data structures created in this workspace.
+
+```{r summary list}
+question <- "Which countries had the greatest ratio of positive cases to tests conducted (circa May/June 2020)?"
+
+answer <- c(covid_mat[1:3, 1])
+
+datasets <- list(
+  original = covid_df,
+  allstates = covid_df_all_states,
+  daily = covid_df_all_states_daily,
+  cumulative = covid_df_all_states_cumulative,
+  top_10 = covid_top_10
+)
+
+matrices <- list(covid_mat)
+vectors <- list(vector_cols, countries)
+
+data_structure_list <- list("dataframe" = datasets, "matrix" = matrices, "vector" = vectors)
+
+covid_analysis_list <- list(question, answer, data_structure_list)
+
+covid_analysis_list[[2]] # display answer object contained in the list
+```
+
+## Comparison to Cumulative Data
+
+To conclude the report, it is interesting to compare the manual summed daily data to the cumulative data.
+
+```{r summary of cumulative data}
+covid_df_all_states_cumulative_summary <- covid_df_all_states_cumulative %>%
+                                  group_by(Country) %>%
+                                  summarize(
+                                    date = max(Date),
+                                    tested = max(total_tested),
+                                    death = max(death),
+                                    hospitalized = max(hospitalized),
+                                    recovered = max(recovered)) %>%
+                                  arrange(-tested)
+                                  
+knitr::kable(head(covid_df_all_states_cumulative_summary, 20))
+```
+
+On the whole, the figures are similar, but with slight discrepancies. Why is there a slight difference? This is not entirely clear since this was an incredibly complicated period of time for humanity. It is likely there was a decent amount of missing daily data for each country for a variety of reasons - perhaps some countries could not begin accurate reporting of daily cases until later for example. 
+
+Additionally, looking at the cumulative data, we see inconsistent dates for the most recent cumulative data for each country This dataset was gathered during the escalation of the pandemic which could potentially be one reason why many countries do not seem to be keeping timely updates in the reported figures. For some countries, the dataset provides more recent cumulative data whilst others lag behind by weeks. 
+
+We can therefore expect the countries with the most recent dates to have a greater incidence of cases and tests conducted. There are exceptions to this of course since the spread of the virus was far more rapid in some regions/countries compared to others due to a number of factors: geography, politics, social culture *etc.* 
+
+## Conclusions and Insights into the UK's initial response to the pandemic
+
+The UK was notably hit hard. 
+
+From the cumulative data, we see `r covid_df_all_states_cumulative_summary[12,3]` tests were conducted up to 13^th^ May 2020, with `r covid_df_all_states_cumulative_summary[12,4]` reported deaths. This is the largest ratio of deaths to tests conducted (at `r covid_df_all_states_cumulative_summary[12,4] / covid_df_all_states_cumulative_summary[12,3]`) for any country in the top 20 by most tests conducted, suggesting poor mobilization of resources. 
+
+Additionally, from the daily data summary, it was found that the UK had a positive-test to total-tests ratio of `r covid_analysis_list[[c(2,1)]]` which is significantly larger than many of the top 10 countries with the greatest number of tests during the early stages of the pandemic. 
+
+Both of these points suggest a poorly managed response from the UK government and general populace. This is corroborated by reports conducted as part of the UK's COVID-19 inquiry.[^4^](https://www.bma.org.uk/bma-media-centre/covid-19-inquiry-report-reveals-government-s-catastrophic-failure-to-manage-the-pandemic-says-bma)
+
+
