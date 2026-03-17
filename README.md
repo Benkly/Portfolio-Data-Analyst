@@ -1,9 +1,12 @@
 # Portfolio-Data-Analyst
 
-This repo showcases projects relevant to data analyst roles.
+This repo showcases projects to showcase skills relevant to Data Analyst and Data Scientist roles.
 
 ## Excel Projects
 Includes Exploratory and Explanatory Data Analysis Reports in Business Contexts.
+
+## Power BI
+Power BI Desktop (`.pbix`) files for Business Intelligence projects (such as high-level reporting of a Business' financial performance). These projects aim to build semantic data models and report critical performance metrics in a succinct, visually appealing manner through creation and distribution of **Dashboards**.
 
 ## SQL Projects
 Exploratory and Explanatory Data Analysis Reports in Business Contexts. Focus on meeting deliverables.
