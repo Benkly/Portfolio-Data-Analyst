@@ -1,0 +1,246 @@
+---
+title: "Book-sales-report"
+author: "Benkly"
+date: "2026-03-18"
+output: 
+ html_document:
+  toc: true
+# output: pdf_document
+# output: ioslides_presentation
+# output: powerpoint_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+This report aims to conduct a Data Analysis workflow using the R programming language in the context of generating a high-level Business Sales Report.
+
+### Background
+Taking the role of a hired data analyst for a company that sells books for learning R programming, the company wants you to check sales data and see if any useful information can be extracted from it.
+
+## Aims
+
+* Determine which products contribute the most to revenue.
+* Determine which markets (states) contribute the most to revenue.
+* Provide insights into trends/customer behaviour at the market-level.
+
+## Dataset
+The dataset was sourced from [Dataquest](https://app.dataquest.io/c/88/m/498/guided-project%3A-creating-an-efficient-data-analysis-workflow/1/introduction).
+
+### Data Dictionary
+| Column                  | Description                                                                 |
+|-------------------------|-----------------------------------------------------------------------------|
+| book                    | Title of Book                                                               |
+| review                  | One-word review (*e.g.,* Excellent, Fair, Poor, ...)                        |
+| state                   | US State (*e.g.,* Texas, California, TX, FL)                                |
+| price                   | Price of Book (in $USD)                                                     |
+
+## Loading Libraries and the Dataset
+
+```{r loading libraries and dataset, warning=FALSE}
+# Loading libraries
+library(conflicted)
+library(tidyverse)
+# Resolve filter conflict
+conflicts_prefer(dplyr::filter)
+# Loading dataset
+book_sales_df <- read_csv("book_reviews.csv") 
+```
+
+## Exploring the Data
+
+```{r understanding the dataset}
+# Dimension of the dataframe
+dim(book_sales_df)
+
+# Column names
+vector_cols <- names(book_sales_df)
+vector_cols
+
+# First six observations
+knitr::kable(head(book_sales_df))
+
+# Global view of the dataset
+glimpse(book_sales_df)
+
+# Unique Values
+unique_values <- c()
+
+for (col in vector_cols) {
+  unique_vals <- unique(book_sales_df[col])
+  unique_values <- c(unique_values, unique_vals)
+}
+print(unique_values)
+```
+
+The dataset contains 2,000 observations and four columns and the datatypes for each column are sensible. 
+
+Immediate things to address:
+
+* There are some missing values in the review column (indicated by NA values). Since there is no reliable way to impute these missing values (and the proportion of missing values is relatively small), so we can remove these rows from the dataset.
+
+* The `state` column contains a mixture of full state names and state codes. All occurrences of the full state name will be converted to their corresponding state code for consistency. 
+
+* The review column would be more informative if the data was represented numerically. Mapping the character data to a number scale of 1 (Poor) to 5 (Excellent) would be beneficial. An additional logical column can then be added to indicate if a review is especially good, say 4+.
+
+## Cleaning
+### Missing Value Handling
+
+Removal of missing values is conducted:
+
+```{r handling missing values}
+missing_values <- book_sales_df %>% 
+  select(review) %>% 
+  filter(review %in% (NA)) %>%
+  nrow()
+
+print(missing_values)
+
+book_sales_df_no_nulls <- book_sales_df %>% 
+  filter(!(is.na(review)))
+
+print(nrow(book_sales_df_no_nulls))
+```
+
+We have successfully removed `r missing_values` records corresponding to missing values in the review column. This corresponds to `r (missing_values / nrow(book_sales_df))*100`% of the dataset. Although this is a sizable chunk of the data, the remaining data should still provide an accurate representation of the overall trends in this case.
+
+### Updating the `state` column
+
+As mentioned above, all occurrences of the full state name will be converted to their corresponding state code for consistency. 
+
+```{r cleaning the state column}
+# add a state_code column
+book_sales_df_clean <- book_sales_df_no_nulls %>%
+  mutate(state_code = case_when(
+    state == "California" ~ "CA",
+    state == "Florida" ~ "FL",
+    state == "Texas" ~ "TX",
+    state == "New York" ~ "NY",
+    TRUE ~ state
+    )
+  )
+
+book_sales_df_clean <- book_sales_df_clean %>% select(-state) # remove the original state column from the dataset
+
+knitr::kable(head(book_sales_df_clean))
+```
+
+### Transforming the `review` column
+
+Finally, we can transform the character data in the `review` column such that it becomes more useful for analysis:
+
+``` {r transforming the review column}
+book_sales_df_clean <- book_sales_df_clean %>%
+    mutate(
+      score = case_when(
+    review == "Poor" ~ 1,
+    review == "Fair" ~ 2,
+    review == "Good" ~ 3,
+    review == "Great" ~ 4,
+    TRUE ~ 5
+    ),
+    is_high_review = if_else(score >= 4, TRUE, FALSE)
+  )
+
+book_sales_df_clean <- book_sales_df_clean %>% select(-review) # remove the original review column from the dataset
+
+knitr::kable(head(book_sales_df_clean))
+```
+
+We can now begin analysing the cleaned dataset.
+
+## Analysis
+
+### Summary by Product
+
+We calculate a number of metrics associated with each product, including `Revenue`, the number of units sold (`Num_sold`), average review score (`Avg_score`) and the percentage of 4 and 5 star reviews a book received out of all reviews for that book (`Percentage_high_reviews`).
+
+``` {r aggregating by product}
+sales_and_score_by_book <- book_sales_df_clean %>%
+  select(book, price, score, is_high_review) %>%
+  group_by(book) %>%
+  summarize(
+    Revenue = sum(price),
+    Num_sold = length(price),
+    Unit_price = max(price),
+    Avg_score = round(mean(score), 2),
+    Percentage_high_reviews = round((sum(is_high_review) / length(is_high_review))*100,1)
+  ) %>%
+  arrange(-Revenue)
+
+knitr::kable(sales_and_score_by_book)
+```
+
+**Findings:**
+
+* The number of books sold across all products is roughly uniform, meaning books valued at the higher price points generate the greatest amount of revenue for the company.
+
+* The average rating score across all books is relatively similar, with a mean value around 3.
+
+* One of the more highly rated books sold by the company is `Fundamentals of R For Beginners`, with an average rating of `r sales_and_score_by_book[2, 5]` and rating score percentage of `r sales_and_score_by_book[2, 6]`%. We could consider slightly raising the price for the highly rated books as this may further increase revenue since customers may be more willing to spend on highly rated books.
+
+---
+
+### Summary by State
+
+The same metrics can be calculated, but summarising at the state level.
+
+``` {r aggregating by state}
+sales_and_score_by_state <- book_sales_df_clean %>%
+  select(state_code, price, score, is_high_review) %>%
+  group_by(state_code) %>%
+  summarize(
+    Revenue = sum(price),
+    Num_sold = length(price),
+    Avg_score = round(mean(score), 2),
+    Percentage_high_reviews = round((sum(is_high_review) / length(is_high_review))*100,1)
+  ) %>%
+  arrange(-Revenue)
+
+knitr::kable(sales_and_score_by_state)
+```
+
+**Findings:**
+
+* We find that `New York` contributes the most to the company revenue, followed by `California` and `Texas`. `Florida` contributes the least.
+
+* California and Florida both seem to give more positive review scores when compared to Texas and New York. This could suggest the California and Florida markets would be more receptive to purchasing higher price point books since their perceived value seems to be greater in these markets.
+
+---
+### Summary by State and Product
+
+Finally, a more granular view of the data is presented. The books generating the greatest revenue are broken down by state, providing some deeper level insight into trends.
+
+``` {r aggregating by state and book}
+sales_and_score_by_state_and_book <- book_sales_df_clean %>%
+  select(state_code, book, price, score, is_high_review) %>%
+  group_by(state_code, book) %>%
+  summarize(
+    Revenue = sum(price),
+    Num_sold = length(price),
+    Unit_price = max(price),
+    Avg_score = round(mean(score), 2),
+    Percentage_high_reviews = round((sum(is_high_review) / length(is_high_review))*100,1),
+    .groups="drop_last" # silence grouping message in report
+  ) %>%
+  arrange(state_code, -Revenue)
+
+knitr::kable(sales_and_score_by_state_and_book)
+```
+
+**Findings:**
+
+* In California, the greatest revenues are generated by higher price point books (and these typically receive higher reviews).
+
+* In Florida, books at the lower range of the available price points are more highly rated, though the greatest revenues are still generated from the highest price point books. It could be the case that the Florida market does not contain as many students looking for books on more advanced topics.
+
+* The New York market shows a greater willingness to purchase the highest price point book `Secrets Of R For Advanced Students` due to the clear increase in number of copies sold for this book when compared to other markets. This could suggest the New York market contains more advanced students who would benefit and be more willing to purchase books on advanced topics.
+
+* Many of the trends already highlighted exist in the Texas market too. Again, the greatest contribution to company revenue comes from books at the higher price points.
+
+## Conclusions
+
+This report provides insight into the revenue performance for a company which sells books related to R programming. A breakdown of sales by product and US state was conducted, highlighting a number of key insights which the company may choose to use to inform future decision making related to budgets, pricing *etc.*
