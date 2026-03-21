@@ -3,7 +3,7 @@
 This repo showcases projects to showcase skills relevant to Data Analyst and Data Scientist roles.
 
 ## Excel Projects
-Includes Exploratory and Explanatory Data Analysis Reports in Business Contexts.
+Includes Exploratory and Explanatory Data Analysis Reports in Business Contexts. Additionally, a sample powerpoint presentation from my PhD studies is also included.
 
 ## Power BI
 Power BI Desktop (`.pbix`) files for Business Intelligence projects (such as high-level reporting of a Business' financial performance). These projects aim to build semantic data models and report critical performance metrics in a succinct, visually appealing manner through creation and distribution of **Dashboards**.
