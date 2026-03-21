@@ -24,7 +24,7 @@ In order to better understand how the pandemic progressed, analysis of data obta
 
 ## Aims
 
-* To develop am understanding of the data analysis workflow using R.
+* To develop an understanding of the data analysis workflow using R.
 * Gain insights into the progression of the COVID-19 pandemic, particularly:
    - Which countries have the greatest number of positive cases relative to the number of tests conducted in the early stages of the pandemic?
    - How did the UK handle the initial months of the pandemic?
