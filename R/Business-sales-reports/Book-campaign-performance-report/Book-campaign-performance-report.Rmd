@@ -1,0 +1,270 @@
+---
+title: "Book-campaign-performance-report"
+author: "Benkly"
+date: "2026-03-23"
+output:
+ html_document:
+  toc: true
+# output: pdf_document
+# output: ioslides_presentation
+# output: powerpoint_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+This report acts as a follow-on to the report titled `Book-sales-report`, which deals with a scenario where a data analyst has been tasked to provide a high-level financial performance report by a company which publishes textbooks related to learning the R programming language.
+
+For this report, we imagine the company has provided additional sales information for the fiscal year of 2019. The company launched a campaign on July 1^st^ 2019 to promote their books and would like to know whether their is evidence to suggest the campaign was successful at increasing sales and improving review quality.
+
+## Aims
+
+* To summarize sales and review sentiment before and after the campaign start date to determine whether there is evidence to suggest the campaign was a success.
+
+To do this, date/time manipulation and string manipulation methods are necessary.
+
+## Dataset
+The dataset was sourced from [Dataquest](https://app.dataquest.io/c/94/m/516/guided-project%3A-creating-an-efficient-data-analysis-workflow%2C-part-2/1/introduction?path).
+
+### Data Dictionary
+| Column                  | Description                                                                 |
+|-------------------------|-----------------------------------------------------------------------------|
+| date                    | Date of sale                                                                |
+| user_submitted_review   | Text based review from the buyer                                            |
+| title                   | The title of the purchased book                                             |
+| total_purchased         | The quantity of books purchased                                             |
+| customer_type           | Whether the customer is an Individual or Business                           |
+
+### Loading Libraries and Importing the Data
+
+```{r loading libraries and dataset}
+# Loading libraries
+library(conflicted)
+library(tidyverse)
+library(lubridate)
+
+# Resolve filter conflict
+conflicts_prefer(dplyr::filter)
+
+# Reading the Data
+sales_2019 <- read_csv("sales2019.csv")
+```
+
+## Exploring the Dataset
+
+```{r understanding the data}
+
+# Dimension of the Dataframe
+dim(sales_2019)
+
+# Column Names
+cols <- colnames(sales_2019)
+cols
+
+# Global view of the data
+glimpse(sales_2019)
+
+# Missing Values
+missing <- function(df) {
+  missing_values <- rep(0, times=length(colnames(df)))
+  names(missing_values) <- colnames(df)
+  i <- 1
+  
+  for (col in colnames(df)) {
+    missing_values[i] <- is.na(df[[col]]) %>% sum
+    i <- i + 1
+  }
+  return(missing_values)
+}
+
+missing(sales_2019)
+```
+
+The dataset contains `r dim(sales_2019)[1]` records and `r dim(sales_2019)[2]` columns. There are `r missing(sales_2019)[2]` missing values in the `user_submitted_review` column and `r missing(sales_2019)[4]` missing values in the `total_purchased` column.
+
+---
+
+Since one of our primary concerns is with sales performance before and after the campaign date, we ideally do not want to discard records with missing data in the `total_purchased` field. We can instead impute the missing data with the mean as a best estimate for the missing values.
+
+In the case of the missing values in the `user_submitted_review` field, we can discard any records with no review as we cannot impute this data.
+
+## Handling Missing Values
+
+``` {r handling missing data}
+# Remove all records with no user review
+
+sales_2019_clean <- sales_2019 %>% 
+  filter(!is.na(user_submitted_review))
+
+# Calculate imputation value
+
+average_purchase_amount <- sales_2019_clean %>%
+  filter(!is.na(total_purchased)) %>%
+  pull(total_purchased) %>%
+  mean
+
+# Impute missing purchase amounts with the calculated value
+
+sales_2019_clean <- sales_2019_clean %>%
+  mutate(
+    imputed_purchases = if_else(is.na(total_purchased), round(average_purchase_amount, 1),
+                                total_purchased)
+  )
+
+# Check for missing values on the cleaned dataset
+missing(sales_2019_clean)
+
+# Dimensions of cleaned dataset
+dim(sales_2019_clean)
+```
+
+From the original `r dim(sales_2019)[1]` records, 885 records (`r (885/dim(sales_2019)[1])*100`%) have been removed corresponding to missing user review fields, leaving `r dim(sales_2019_clean)[1]` records. The remaining 583 null values in the `total_purchased` field have been imputed using the average of the `total_purchased` field (with nulls removed). 
+
+## Handling the Review Column
+
+The `user_submitted_review` field is more complicated in that there is no specific format that the data must fit into. It is a free-form text field which users can input any sequence of ASCII characters. For this report, we would like to assign a sentiment to each review as either positive, negative or neutral.
+
+```{r review handling}
+unique_reviews <- sales_2019_clean %>%
+  pull(user_submitted_review) %>%
+  unique()
+
+unique_reviews
+```
+
+It seems there are only a handful of unique reviews (this is a simplified case). Since there are a relatively small number of unique reviews, we can assign sentiment to each using a custom function.
+
+```{r assigning sentiments to reviews}
+sentiment <- function(review) {
+  review <- str_to_lower(review)
+  sentiment_class <- case_when(
+    str_detect(review, "awesome") ~ "Positive",
+    str_detect(review, "learned a lot") ~ "Positive",
+    str_detect(review, "never") ~ "Positive",
+    str_detect(review, "not recommend") ~ "Negative",
+    str_detect(review, "not needed") ~ "Negative",
+    str_detect(review, "hate") ~ "Negative",
+    str_detect(review, "other books were better") ~ "Negative",
+    TRUE ~ "Neutral" # captures reviews which do not contain any of the substrings listed above
+  )
+}
+
+sales_2019_clean <- sales_2019_clean %>%
+  mutate(
+    sentiment = unlist(map(user_submitted_review, sentiment)),
+    sentiment_score = case_when(
+      sentiment == "Positive" ~ 1,
+      sentiment == "Neutral" ~ 0,
+      TRUE ~ -1
+    )
+  )
+
+knitr::kable(head(sales_2019_clean, 20))
+```
+
+## Preparing the `date` Field
+
+Before moving to segmenting the dataset by date, we first need to prepare the date data for use. As it stands currently, the date is expressed as a string representation. The **lubridate** package can be used to format and parse datetime data.
+
+```{r date manipulation}
+campaign_date <- "07-01-2019" %>% mdy %>% as.numeric() # unix-time representation of the campaign date
+
+sales_2019_clean <- sales_2019_clean %>% 
+  mutate(
+  date = mdy(date),
+  during_campaign = if_else(date >= campaign_date, TRUE, FALSE)
+)
+
+knitr::kable(head(sales_2019_clean))
+
+# Save cleaned data
+write.csv(sales_2019_clean, "sales2019clean.csv", row.names=FALSE)
+```
+
+We have successfully categorized each record as either pre- or post-campaign, assigned a sentiment (and sentiment score) to each record and have a measure of sales performance using the `imputed_purchases` field. The data is ready for analysis.
+
+## Analysis
+
+We can begin by aggregating the data pre- and post-campaign to get an insight into whether an improvement in sales and sentiment occurred.
+
+```{r segmenting the data by pre/post campaign}
+
+# create a mode function to find the statistical mode of the sentiment column
+mode <- function(x) {
+  unique_vals <- unique(x)
+  unique_vals[which.max(tabulate(match(x, unique_vals)))]
+}
+
+campaign_performance_breakdown <- sales_2019_clean %>%
+  group_by(during_campaign) %>%
+  summarize(
+    sentiment = mode(sentiment),
+    avg_sentiment_score = round(mean(sentiment_score), 3),
+    total_purchases = sum(imputed_purchases),
+    avg_quantity_purchased_per_sale = round(mean(imputed_purchases), 2)
+  )
+
+knitr::kable(campaign_performance_breakdown)
+```
+
+* There is only a very marginal improvement in review sentiment during the period of time when the campaign was running. 
+
+* The number of books purchased actually declined slightly during the campaign period. 
+
+These changes are small, so will certainly be statistically insignificant. Taking the data as a whole, there is insufficient evidence to support that the campaign was successful at improving sentiment or purchase of books. 
+
+It could be the case that some customers responded better to the campaign depending on whether they are an individual versus a business. We can sub-divide the data further to explore this:
+
+```{r segmenting the data by pre/post campaign and customer type}
+
+campaign_performance_breakdown_by_customer_type <- sales_2019_clean %>%
+  group_by(during_campaign, customer_type) %>%
+  summarize(.groups="drop_last",
+    sentiment = mode(sentiment),
+    avg_sentiment_score = round(mean(sentiment_score), 3),
+    total_purchases = sum(imputed_purchases),
+    avg_quantity_purchased_per_sale = round(mean(imputed_purchases), 2)
+  ) %>%
+  arrange(customer_type)
+
+knitr::kable(campaign_performance_breakdown_by_customer_type)
+```
+
+* Businesses show a slight improvement in both sales and review sentiment comparing pre-campaign performance to post-campaign performance.
+
+* There is a decline in review sentiment and sales for individual customers however.
+
+---
+Finally, we can breakdown the sentiment change and sales performance for specific titles:
+
+```{r segmenting the data by pre/post campaign and title}
+
+campaign_performance_breakdown_by_customer_type <- sales_2019_clean %>%
+  group_by(during_campaign, title) %>%
+  summarize(.groups="drop_last",
+    sentiment = mode(sentiment),
+    avg_sentiment_score = round(mean(sentiment_score), 3),
+    total_purchases = sum(imputed_purchases),
+    avg_quantity_purchased_per_sale = round(mean(imputed_purchases), 2)
+  ) %>%
+  arrange(title)
+
+knitr::kable(campaign_performance_breakdown_by_customer_type)
+```
+
+We can draw some interesting conclusions from this breakdown:
+
+* The general sentiment for `Fundamentals of R For Beginners` noticeably improved, however, the number of sales of the book declined.
+
+* More copies of `R For Dummies` were sold post-campaign, though the review sentiments did not significantly change.
+
+* Very few copies of `R Made Easy` sold during either period. A slight improvement in sentiment and sales is noted during the campaign, but due to the small sample size, should not be taken too seriously.
+
+* `R vs Python: An Essay` performed considerably worse during the campaign period, both sentiment and sales declined.
+
+* Sales of `Secrets Of R For Advanced Students` improved during the campaign, however, the sentiment of the reviews worsened.
+
+* The book `Top 10 Mistakes R Beginners Make` is the second worst performing title sold by the company. We can note an improvement in review sentiment post-campaign, however, sales declined slightly.
