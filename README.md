@@ -15,7 +15,7 @@ Exploratory and Explanatory Data Analysis Reports in Business Contexts. Focus on
 * `northwind` - showcases more advanced SQL query writing, including window functions and CTEs, integrated with Python (PostgresSQL dialect)
 
 ## Python Projects
-Covers a range of different project types, including: machine-learning, exploratory/explanatory data analysis, probability-and-statistics, using-apis, web-scraping and end-to-end-projects.
+Covers a range of different project types, including: end-to-end-projects machine-learning, exploratory/explanatory data analysis, probability-and-statistics, using-apis, web-scraping and parallel-programming.
 
 ## R Projects
 Data Analysis Reports created using the R Statistical Programming Language in RStudio.
